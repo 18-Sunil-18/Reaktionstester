@@ -28,3 +28,13 @@ void neustart(){
     reset();
   }
 }
+
+void ZeitBerechnen(){
+  randNumber0 = random(MinZeit0, MaxZeit0);
+  randNumber1 = random(MinZeit1, MaxZeit1);
+  randNumber2 = random(MinZeit2, MaxZeit2);
+  //Serial.println(randNumber0);
+  //Serial.println(randNumber1);
+  //Serial.println(randNumber2);
+  //Serial.println("");
+}
