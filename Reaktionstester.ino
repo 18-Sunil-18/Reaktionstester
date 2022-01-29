@@ -5,6 +5,15 @@
 #define LEDGRUEN 5   // LED-Pin Grün
 #define LEVEL 5   // Schwierigkeits-Level
 
+int MaxZeit0 = 3000,
+    MinZeit0 = 1000,
+    MaxZeit1 = 6000,
+    MinZeit1 = 2000,
+    MaxZeit2 = 8000,
+    MinZeit2 = 3000;
+long randNumber0;
+long randNumber1;
+long randNumber2;
 int taktPin = 8;    // SH_CP
 int speicherPin = 9;    // ST_CP
 int datenPin = 10;    // DS
@@ -21,6 +30,8 @@ void setup(){
   pinMode(LEDROT, OUTPUT);
   pinMode(LEDGELB, OUTPUT);
   pinMode(LEDGRUEN, OUTPUT);
+  randomSeed(analogRead(6));
+  //Serial.begin(9600);
 }
 
 void loop(){
@@ -28,16 +39,17 @@ void loop(){
   if(phase < 3) zeigeWert(0);   // Zeige am Anfang 00 in der Anzeige
   // Steuerung der Ampelphasen
   if((taster) && (startPunkt == 0)){
+    ZeitBerechnen();
     phase = 1;    // Beginne mit Rot
     startPunkt = millis();
   }
-  if((phase == 1) && (millis() - startPunkt > 2000))
+  if((phase == 1) && (millis() - startPunkt > randNumber0))
     digitalWrite(LEDROT, HIGH);
-  if((phase == 1) && (millis() - startPunkt > 4000)){
+  if((phase == 1) && (millis() - startPunkt > randNumber1)){
     digitalWrite(LEDGELB, HIGH);
     phase = 2;    // Gelb
   }
-  if((phase == 2) && (millis() - startPunkt > 6000)){
+  if((phase == 2) && (millis() - startPunkt > randNumber2)){
     digitalWrite(LEDROT, LOW);
     digitalWrite(LEDGELB, LOW);
     digitalWrite(LEDGRUEN, HIGH);
